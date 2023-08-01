@@ -1,8 +1,30 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
     movie: null,
     isLoading: false,
     error: false,
   };
+
+  const postDetailSlice = createSlice({
+    name: 'movie',
+    initialState: initialState,
+    reducers: {
+      setIsLoading: (state, action) => {
+        state.isLoading = action.payload;
+      },
+      setMovieDetails: (state, action) => {
+        state.movie = action.payload;
+      },
+      setError: (state, action) => {
+        state.error = action.payload;
+      },
+    }
+  });
+
+  export const {setIsLoading, setMovieDetails, setError} = postDetailSlice.actions;
+
+  export const postDetailReducer = postDetailSlice.reducer;
   
   // REDUX approach 
   //export const postDetailReducer = (state = initialState, action) => {
