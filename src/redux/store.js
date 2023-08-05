@@ -29,6 +29,7 @@ import { getDefaultNormalizer } from "@testing-library/react";
 const moviePersistConfig = {
   key: 'movie',
   storage: storage,
+  whitelist: ['movie'], //what i want to synchronize and save to a localStorage
 };
 
 export const store = configureStore({

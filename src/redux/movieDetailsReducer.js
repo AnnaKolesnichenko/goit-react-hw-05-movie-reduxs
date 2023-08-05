@@ -23,7 +23,6 @@ const initialState = {
   });
 
   export const {setIsLoading, setMovieDetails, setError} = postDetailSlice.actions;
-
   export const postDetailReducer = postDetailSlice.reducer;
   
   // REDUX approach 
