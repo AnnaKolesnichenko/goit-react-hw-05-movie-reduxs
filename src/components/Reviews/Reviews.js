@@ -12,7 +12,7 @@ const Reviews = () => {
   const dispatch = useDispatch();
   const reviews = useSelector(state => {
     console.log(state);
-    return state.reviews.reviews.data;
+    return state.reviews.reviews;
   });
   const loading = useSelector(state => state.reviews.isLoading);
   const error = useSelector(state => state.reviews.error);
@@ -45,7 +45,7 @@ const Reviews = () => {
       ) : (
         <ul className={style.items}>
           {reviews &&
-            reviews.map(review => (
+            reviews.data.results.map(review => (
               <li key={review.id} className={style.item}>
                 <h2 className={style.author}>Author: {review.author}</h2>
                 <p className={style.details}>{review.content}</p>

@@ -20,7 +20,7 @@ const MovieDetails = () => {
   // const [loading, setLoading] = useState(false);
   const movie = useSelector(state => {
     console.log('state', state);
-    return state.movie.movie;
+    return state.movie.movie.data;
   });
   console.log(movie);
   const loading = useSelector(state => {
