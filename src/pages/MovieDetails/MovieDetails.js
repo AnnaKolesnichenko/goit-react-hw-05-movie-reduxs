@@ -3,8 +3,8 @@ import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 
-import { fetchMovieById } from 'services/ApiServices';
-import { setIsLoading } from 'redux/movieDetailsReducer';
+// import { fetchMovieById } from 'services/ApiServices';
+import { fetchMovieDataThunk } from 'redux/movieDetailsReducer';
 import { getPoster } from 'services/ApiServices';
 import Loader from 'components/Loader/Loader';
 
@@ -22,6 +22,7 @@ const MovieDetails = () => {
     console.log('state', state);
     return state.movie.movie;
   });
+  console.log(movie);
   const loading = useSelector(state => {
     return state.movie.isLoading;
   });
@@ -32,32 +33,35 @@ const MovieDetails = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchMovieDataThunk(movieId));
     // setLoading(true);
-    dispatch(setIsLoading(true));
-    fetchMovieById(movieId)
-      .then(res => {
-        // setMovie(res.data);
-        dispatch({type: "movie/setMovieDetails", payload: res.data});
-        // setLoading(false);
-        dispatch(setIsLoading(false));
-      })
-      .catch(error => {
-        // setError(true);
-        dispatch({type: "movie/setError", payload: true })
-        // setLoading(false);
-        dispatch(setIsLoading(false));
-      });
+    // dispatch(setIsLoading(true));
+    // fetchMovieById(movieId)
+    //   .then(res => {
+    //     // setMovie(res.data);
+    //     dispatch({type: "movie/setMovieDetails", payload: res.data});
+    //     // setLoading(false);
+    //     dispatch(setIsLoading(false));
+    //   })
+    //   .catch(error => {
+    //     // setError(true);
+    //     dispatch({type: "movie/setError", payload: true })
+    //     // setLoading(false);
+    //     dispatch(setIsLoading(false));
+    //   });
   }, [movieId, dispatch]);
 
   useEffect(() => {
-    if(location.state && location.state.from) {
+    if (location.state && location.state.from) {
       lastQueryReference.current = location.state.from;
     }
   }, [location.state]);
   return (
     <div style={{ marginLeft: 10 }}>
       <Link to={lastQueryReference.current}>
-        <button type="button" className={style.back_btn}>Go back</button>
+        <button type="button" className={style.back_btn}>
+          Go back
+        </button>
       </Link>
 
       {/* Добавьте условие для проверки, что movie не равно null */}
@@ -77,7 +81,9 @@ const MovieDetails = () => {
                 {movie.title}{' '}
                 {movie.release_date && `(${movie.release_date.slice(0, 4)})`}
               </h2>
-              <h3 className={style.details}>User score: {movie.vote_average}</h3>
+              <h3 className={style.details}>
+                User score: {movie.vote_average}
+              </h3>
               <h2 className={style.title}>Overview </h2>
               <h3 className={style.details}>{movie.overview}</h3>
               <h2 className={style.title}>Genres </h2>
@@ -90,22 +96,22 @@ const MovieDetails = () => {
           </div>
 
           {/* Отобразите ссылки и точки входа */}
-          <h2 className={style.additional_title}>
-            Additional information
-          </h2>
+          <h2 className={style.additional_title}>Additional information</h2>
           <ul className={style.link_list}>
             <li>
-              <Link to="cast" >Cast</Link>
+              <Link to="cast">Cast</Link>
             </li>
             <li>
-              <Link to="reviews" >Reviews</Link>
+              <Link to="reviews">Reviews</Link>
             </li>
           </ul>
           <Outlet />
         </>
+      ) : // Отобразите загрузчик или другое сообщение, если movie равно null
+      loading ? (
+        <Loader />
       ) : (
-        // Отобразите загрузчик или другое сообщение, если movie равно null
-        loading ? (<Loader />) : (<p>Movie not found.</p>)
+        <p>Movie not found.</p>
       )}
     </div>
   );
@@ -161,4 +167,3 @@ const MovieDetails = () => {
 };
 
 export default MovieDetails;
-
