@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 // import { fetchReviews } from 'services/ApiServices';
 import Loader from 'components/Loader/Loader';
 
-import style from './Reviews.module.css';
+import style from './reviews.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReviewsThunk } from 'redux/commentsReducer';
 

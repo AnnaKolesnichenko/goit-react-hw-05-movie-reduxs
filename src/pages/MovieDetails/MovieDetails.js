@@ -8,7 +8,7 @@ import { fetchMovieDataThunk } from 'redux/movieDetailsReducer';
 import { getPoster } from 'services/ApiServices';
 import Loader from 'components/Loader/Loader';
 
-import style from './MovieDetails.module.css';
+import style from './movieDetails.module.css';
 
 const MovieDetails = () => {
   const { movieId } = useParams();

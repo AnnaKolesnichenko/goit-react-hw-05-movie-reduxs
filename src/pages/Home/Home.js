@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { fetchTrending } from 'services/ApiServices';
 import MovieList from 'components/MovieList/MovieList';
 
-import style from './Home.module.css';
+import style from './home.module.css';
 
 const Home = () => {
   const [trenderMovies, setTrendedMovies] = useState([]);
@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div>
       <h1 className={style.title}>Trending today</h1>
-      {trenderMovies.length > 0 && <MovieList movies={trenderMovies}/>}
+      {trenderMovies.length > 0 && <MovieList movies={trenderMovies} />}
     </div>
   );
 };
